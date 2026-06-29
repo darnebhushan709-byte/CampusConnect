@@ -71,5 +71,72 @@ router.get("/", async (req, res) => {
     });
   }
 });
+// =========================
+// Update Note
+// =========================
+router.put("/:id", protect, upload.single("file"), async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
 
+    if (!note) {
+      return res.status(404).json({
+        message: "Note not found",
+      });
+    }
+
+    if (note.uploadedBy.toString() !== req.user) {
+      return res.status(401).json({
+        message: "Not authorized",
+      });
+    }
+
+    note.title = req.body.title || note.title;
+    note.subject = req.body.subject || note.subject;
+
+    if (req.file) {
+      note.file = req.file.path;
+    }
+
+    const updatedNote = await note.save();
+
+    res.status(200).json({
+      message: "Note updated successfully",
+      updatedNote,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+// =========================
+// Delete Note
+// =========================
+router.delete("/:id", protect, async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+
+    if (!note) {
+      return res.status(404).json({
+        message: "Note not found",
+      });
+    }
+
+    if (note.uploadedBy.toString() !== req.user) {
+      return res.status(401).json({
+        message: "Not authorized",
+      });
+    }
+
+    await Note.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+      message: "Note deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
 module.exports = router;
