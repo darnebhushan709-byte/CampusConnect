@@ -112,14 +112,14 @@ function Events() {
 
       const token = getToken();
 
-      const response = await axios.delete(
-        `http://localhost:5000/api/events/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+     const response = await axios.delete(
+  `${import.meta.env.VITE_API_URL}/api/events/${id}`,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
 
       toast.success(response.data.message);
       fetchEvents();

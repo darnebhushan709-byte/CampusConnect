@@ -22,7 +22,9 @@ function Notes() {
 
   const fetchNotes = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/notes");
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/notes`
+      );
       setNotes(response.data);
     } catch (error) {
       console.log(error);
@@ -52,7 +54,7 @@ function Notes() {
       formData.append("file", file);
 
       const response = await axios.post(
-        "http://localhost:5000/api/notes",
+        `${import.meta.env.VITE_API_URL}/api/notes`,
         formData,
         {
           headers: {
@@ -96,7 +98,7 @@ function Notes() {
       }
 
       const response = await axios.put(
-        `http://localhost:5000/api/notes/${editId}`,
+        `${import.meta.env.VITE_API_URL}/api/notes/${editId}`,
         formData,
         {
           headers: {
@@ -126,7 +128,7 @@ function Notes() {
       const token = getToken();
 
       const response = await axios.delete(
-        `http://localhost:5000/api/notes/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/notes/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -174,7 +176,7 @@ function Notes() {
   }
 
   const getFileUrl = (filePath) => {
-    return `http://localhost:5000/${filePath.replace("\\", "/")}`;
+    return `${import.meta.env.VITE_API_URL}/${filePath.replace("\\", "/")}`;
   };
 
   return (

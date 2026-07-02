@@ -16,13 +16,13 @@
   margin: 0 auto 30px auto;
   background: white;
   padding: 22px;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
 }
 
 .announcement-form h2 {
-  color: #2c3e50;
   text-align: center;
+  color: #2c3e50;
   margin-bottom: 18px;
 }
 
@@ -34,23 +34,23 @@
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 15px;
+  resize: vertical;
 }
 
 .announcement-form textarea {
-  height: 90px;
-  resize: none;
+  min-height: 110px;
 }
 
 .announcement-form button {
   width: 100%;
   padding: 11px;
+  margin-top: 12px;
   background: #0077ff;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  margin-top: 12px;
-  font-size: 16px;
+  transition: 0.3s;
 }
 
 .announcement-form button:hover {
@@ -65,6 +65,31 @@
   background: #636e72 !important;
 }
 
+.search-input {
+  display: block;
+  width: 420px;
+  max-width: 90%;
+  margin: 0 auto 18px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.filter-sort-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.filter-sort-box select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: white;
+  font-size: 15px;
+}
+
 .announcements-list {
   display: flex;
   justify-content: center;
@@ -73,40 +98,52 @@
 }
 
 .announcement-card {
-  width: 330px;
+  width: 340px;
   background: white;
   padding: 22px;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+  transition: 0.3s;
+}
+
+.announcement-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
 }
 
 .announcement-card h2 {
   color: #0077ff;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .announcement-card p {
   color: #555;
+  line-height: 1.6;
+  white-space: pre-wrap;
 }
 
 .announcement-actions {
   display: flex;
   gap: 10px;
-  margin-top: 15px;
+  margin-top: 18px;
 }
 
 .announcement-actions button {
   flex: 1;
-  padding: 9px;
-  background: #27ae60;
-  color: white;
+  padding: 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  color: white;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-.announcement-actions button:hover {
-  background: #1e8449;
+.announcement-actions button:first-child {
+  background: #27ae60;
+}
+
+.announcement-actions button:first-child:hover {
+  background: #1f8b4d;
 }
 
 .delete-btn {
@@ -120,4 +157,17 @@
 .empty-text {
   text-align: center;
   color: #777;
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .announcement-form,
+  .announcement-card,
+  .search-input {
+    width: 90%;
+  }
+
+  .announcement-actions {
+    flex-direction: column;
+  }
 }
