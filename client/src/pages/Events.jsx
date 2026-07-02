@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 import "./Events.css";
 
 function Events() {
@@ -11,23 +12,23 @@ function Events() {
   const [venue, setVenue] = useState("");
 
   const [editId, setEditId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterType, setFilterType] = useState("all");
+  const [sortType, setSortType] = useState("newest");
 
   useEffect(() => {
     fetchEvents();
   }, []);
 
-  const getToken = () => {
-    return localStorage.getItem("token");
-  };
+  const getToken = () => localStorage.getItem("token");
 
   const fetchEvents = async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/events");
-
       setEvents(response.data);
     } catch (error) {
       console.log(error);
-      alert("Unable to fetch events");
+      toast.error("Unable to fetch events");
     }
   };
 
@@ -39,18 +40,21 @@ function Events() {
     setEditId(null);
   };
 
+  const handleSubmit = () => {
+    if (editId) {
+      updateEvent();
+    } else {
+      createEvent();
+    }
+  };
+
   const createEvent = async () => {
     try {
       const token = getToken();
 
       const response = await axios.post(
         "http://localhost:5000/api/events",
-        {
-          title,
-          description,
-          date,
-          venue,
-        },
+        { title, description, date, venue },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -58,12 +62,12 @@ function Events() {
         }
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
       clearForm();
       fetchEvents();
     } catch (error) {
       console.log(error);
-      alert(error.response?.data?.message || "Unable to create event");
+      toast.error(error.response?.data?.message || "Unable to create event");
     }
   };
 
@@ -81,12 +85,7 @@ function Events() {
 
       const response = await axios.put(
         `http://localhost:5000/api/events/${editId}`,
-        {
-          title,
-          description,
-          date,
-          venue,
-        },
+        { title, description, date, venue },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -94,12 +93,12 @@ function Events() {
         }
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
       clearForm();
       fetchEvents();
     } catch (error) {
       console.log(error);
-      alert(error.response?.data?.message || "Unable to update event");
+      toast.error(error.response?.data?.message || "Unable to update event");
     }
   };
 
@@ -122,21 +121,52 @@ function Events() {
         }
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
       fetchEvents();
     } catch (error) {
       console.log(error);
-      alert(error.response?.data?.message || "Unable to delete event");
+      toast.error(error.response?.data?.message || "Unable to delete event");
     }
   };
 
-  const handleSubmit = () => {
-    if (editId) {
-      updateEvent();
-    } else {
-      createEvent();
-    }
-  };
+  let filteredEvents = events.filter((event) => {
+    return (
+      event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      event.venue.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  if (filterType === "upcoming") {
+    filteredEvents = filteredEvents.filter(
+      (event) => new Date(event.date) >= today
+    );
+  }
+
+  if (filterType === "past") {
+    filteredEvents = filteredEvents.filter(
+      (event) => new Date(event.date) < today
+    );
+  }
+
+  if (sortType === "newest") {
+    filteredEvents.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  }
+
+  if (sortType === "oldest") {
+    filteredEvents.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  }
+
+  if (sortType === "az") {
+    filteredEvents.sort((a, b) => a.title.localeCompare(b.title));
+  }
+
+  if (sortType === "za") {
+    filteredEvents.sort((a, b) => b.title.localeCompare(a.title));
+  }
 
   return (
     <div className="events-container">
@@ -183,18 +213,46 @@ function Events() {
         )}
       </div>
 
-      {events.length === 0 ? (
-        <p className="empty-text">No Events Available</p>
+      <input
+        className="search-input"
+        type="text"
+        placeholder="Search events by title, description, or venue..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+
+      <div className="filter-sort-box">
+        <select
+          value={filterType}
+          onChange={(e) => setFilterType(e.target.value)}
+        >
+          <option value="all">All Events</option>
+          <option value="upcoming">Upcoming Events</option>
+          <option value="past">Past Events</option>
+        </select>
+
+        <select value={sortType} onChange={(e) => setSortType(e.target.value)}>
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="az">A-Z</option>
+          <option value="za">Z-A</option>
+        </select>
+      </div>
+
+      {filteredEvents.length === 0 ? (
+        <p className="empty-text">No Events Found</p>
       ) : (
         <div className="events-list">
-          {events.map((event) => (
+          {filteredEvents.map((event) => (
             <div className="event-card" key={event._id}>
               <h2>{event.title}</h2>
               <p>{event.description}</p>
+
               <p>
                 <strong>Date:</strong>{" "}
                 {new Date(event.date).toLocaleDateString()}
               </p>
+
               <p>
                 <strong>Venue:</strong> {event.venue}
               </p>

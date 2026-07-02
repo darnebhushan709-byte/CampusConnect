@@ -1,32 +1,32 @@
-.events-container {
+.notes-container {
   padding: 30px;
   background: #f5f7fa;
   min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.events-container h1 {
+.notes-container h1 {
   text-align: center;
   color: #2c3e50;
   margin-bottom: 30px;
 }
 
-.event-form {
+.note-form {
   width: 420px;
   margin: 0 auto 30px auto;
   background: white;
   padding: 22px;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
 }
 
-.event-form h2 {
-  color: #2c3e50;
+.note-form h2 {
   text-align: center;
+  color: #2c3e50;
   margin-bottom: 18px;
 }
 
-.event-form input {
+.note-form input {
   width: 95%;
   padding: 11px;
   margin: 8px 0;
@@ -35,19 +35,19 @@
   font-size: 15px;
 }
 
-.event-form button {
+.note-form button {
   width: 100%;
   padding: 11px;
+  margin-top: 12px;
   background: #0077ff;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  margin-top: 12px;
-  font-size: 16px;
+  transition: 0.3s;
 }
 
-.event-form button:hover {
+.note-form button:hover {
   background: #005fd1;
 }
 
@@ -63,71 +63,97 @@
   display: block;
   width: 420px;
   max-width: 90%;
-  margin: 0 auto 18px auto;
+  margin: 0 auto 18px;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .filter-sort-box {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
+  margin-bottom: 25px;
 }
 
 .filter-sort-box select {
   padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 8px;
-  font-size: 15px;
+  border: 1px solid #ccc;
   background: white;
+  font-size: 15px;
 }
 
-.events-list {
+.notes-list {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 25px;
 }
 
-.event-card {
+.note-card {
   width: 330px;
   background: white;
   padding: 22px;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+  transition: 0.3s;
 }
 
-.event-card h2 {
+.note-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.note-card h2 {
   color: #0077ff;
   margin-bottom: 10px;
 }
 
-.event-card p {
+.note-card p {
   color: #555;
 }
 
-.event-actions {
+.pdf-actions {
+  display: flex;
+  justify-content: space-between;
+  margin: 18px 0;
+}
+
+.pdf-actions a {
+  text-decoration: none;
+  background: #0077ff;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.pdf-actions a:hover {
+  background: #005fd1;
+}
+
+.note-actions {
   display: flex;
   gap: 10px;
-  margin-top: 15px;
 }
 
-.event-actions button {
+.note-actions button {
   flex: 1;
-  padding: 9px;
-  background: #27ae60;
-  color: white;
+  padding: 10px;
   border: none;
-  border-radius: 5px;
+  color: white;
+  border-radius: 6px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-.event-actions button:hover {
-  background: #1e8449;
+.note-actions button:first-child {
+  background: #27ae60;
+}
+
+.note-actions button:first-child:hover {
+  background: #1f8b4d;
 }
 
 .delete-btn {
@@ -141,4 +167,22 @@
 .empty-text {
   text-align: center;
   color: #777;
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .note-form,
+  .note-card,
+  .search-input {
+    width: 90%;
+  }
+
+  .pdf-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .note-actions {
+    flex-direction: column;
+  }
 }
