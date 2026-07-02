@@ -1,0 +1,117 @@
+.events-container {
+  padding: 30px;
+  background: #f5f7fa;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.events-container h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+.event-form {
+  width: 420px;
+  margin: 0 auto 30px auto;
+  background: white;
+  padding: 22px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+}
+
+.event-form h2 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.event-form input {
+  width: 95%;
+  padding: 11px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.event-form button {
+  width: 100%;
+  padding: 11px;
+  background: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 12px;
+  font-size: 16px;
+}
+
+.event-form button:hover {
+  background: #005fd1;
+}
+
+.cancel-btn {
+  background: #7f8c8d !important;
+}
+
+.cancel-btn:hover {
+  background: #636e72 !important;
+}
+
+.events-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.event-card {
+  width: 330px;
+  background: white;
+  padding: 22px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+}
+
+.event-card h2 {
+  color: #0077ff;
+  margin-bottom: 10px;
+}
+
+.event-card p {
+  color: #555;
+}
+
+.event-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.event-actions button {
+  flex: 1;
+  padding: 9px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.event-actions button:hover {
+  background: #1e8449;
+}
+
+.delete-btn {
+  background: #e74c3c !important;
+}
+
+.delete-btn:hover {
+  background: #c0392b !important;
+}
+
+.empty-text {
+  text-align: center;
+  color: #777;
+}
