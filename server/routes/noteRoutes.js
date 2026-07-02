@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const note = require("../models/note");
+const Note = require("../models/Note");
 const protect = require("../middleware/authMiddleware");
 
 // =========================
@@ -37,7 +37,7 @@ router.post("/", protect, upload.single("file"), async (req, res) => {
       });
     }
 
-    const note = new Note({
+    const note = new Sote({
       title: title,
       subject: subject,
       file: req.file.path,
