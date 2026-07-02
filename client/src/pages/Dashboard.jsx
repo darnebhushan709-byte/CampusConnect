@@ -23,21 +23,32 @@ function Dashboard() {
         <h1>Welcome, {user?.name || "Student"} 👋</h1>
         <p>Your college activity hub</p>
 
-        <div className="dashboard-cards" onClick={() => navigate("/events")}>
-          <div className="dashboard-card">
+        <div className="dashboard-cards">
+
+          <div
+            className="dashboard-card"
+            onClick={() => navigate("/events")}
+          >
             <h3>📅 Events</h3>
             <p>Create and manage college events.</p>
           </div>
 
-          <div className="dashboard-card">
+          <div
+            className="dashboard-card"
+            onClick={() => navigate("/announcements")}
+          >
             <h3>📢 Announcements</h3>
             <p>View and manage important notices.</p>
           </div>
 
-          <div className="dashboard-card">
+          <div
+            className="dashboard-card"
+            onClick={() => navigate("/notes")}
+          >
             <h3>📚 Notes</h3>
             <p>Upload and access study materials.</p>
           </div>
+
         </div>
       </div>
     </div>
