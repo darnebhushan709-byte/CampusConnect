@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const Note = require("../models/note");
+const note = require("../models/note");
 const protect = require("../middleware/authMiddleware");
 
 // =========================
